@@ -1,0 +1,11 @@
+ARG POSTGRES_VERSION
+FROM postgres:$POSTGRES_VERSION
+
+# ENV NEED ARG AGAIN
+ARG POSTGRES_VERSION
+ENV POSTGRES_VERSION=$POSTGRES_VERSION
+
+RUN echo "**** Version de PG utilisée : $POSTGRES_VERSION ****"
+
+RUN apt-get update
+RUN apt-get install -y postgresql-plpython3-${POSTGRES_VERSION} nano
