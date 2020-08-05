@@ -10,6 +10,8 @@
     address = ":80"
   [entryPoints.db]
     address = ":5432"
+  [entryPoints.node]
+    address = ":3000"
   [entryPoints.https]
     address = ":443"
 

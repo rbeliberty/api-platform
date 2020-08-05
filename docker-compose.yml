@@ -23,6 +23,9 @@ services:
         published: 5432
         protocol: tcp
         mode: host
+      - target: 3000
+        published: 3000
+        protocol: tcp
     volumes:
       - ./stack/certs:/certs:ro
       - /var/run/docker.sock:/var/run/docker.sock
@@ -172,11 +175,13 @@ services:
     tty: true # https://github.com/facebook/create-react-app/issues/8688
     volumes:
       - ./admin:/usr/src/admin:rw,cached
-      - ./stack/certs:/usr/src/admin/node_modules/webpack-dev-server/ssl:rw,nocopy
-    ports:
-      - target: 3000
-        published: 444
-        protocol: tcp
+      #- ./stack/certs:/usr/src/admin/node_modules/webpack-dev-server/ssl:rw
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.admins.rule=Host(`admin.dev.local`)"
+      - "traefik.http.routers.admins.entrypoints=node"
+      - "traefik.http.routers.admins.tls=true"
+      - "traefik.http.services.admin.loadbalancer.server.port=3000"
 
 
 
