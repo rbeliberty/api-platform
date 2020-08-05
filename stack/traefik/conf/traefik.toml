@@ -27,6 +27,8 @@
 [docker.tls]
   cert = "/certs/localhost.crt"
   key  = "/certs/localhost.key"
+  ca   = "/certs/localCA.crt"
+  insecureSkipVerify = true
 
 [api]
   insecure = true
